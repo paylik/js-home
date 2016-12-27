@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clock</title>
+    <style>
+        #clock {
+            padding: 20px;
+            margin: 50px;
+            height: 60px;
+            width: 285px;
+            border: 1px solid red;
+            font-size: 46px;
+            font-weight: bold;
+            color: dimgray;
+            border-radius: 5px;
+        }
+        span {
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="clock">
+    <span class="hour">hh</span> : <span class="min">mm</span> : <span class="sek">ss</span>
+</div>
+
+<script>
+    function update() {
+        var clock = document.getElementById('clock');
+
+        var date = new Date();
+
+        var hours = date.getHours();
+        if (hours < 10) {hours = '0' + hours;}
+        clock.children[0].innerHTML = hours;
+
+        var minutes = date.getMinutes();
+        if (minutes < 10) {minutes = '0' + minutes;}
+        clock.children[1].innerHTML = minutes;
+
+        var seconds = date.getSeconds();
+        if (seconds < 10) {seconds = '0' + seconds;}
+        clock.children[2].innerHTML = seconds;
+
+        var span = document.getElementsByTagName('span');
+        var color = getRandomColor();
+        for (var i = 0; i < span.length; i++) {
+        span[i].style.backgroundColor = color;
+        }
+    }
+
+    function getRandomColor() {
+        var letters = 'BCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 5)];
+        }
+        return color;
+    }
+
+    function clockStart() {
+        setInterval(update, 1000);
+        update();
+    }
+    clockStart();
+
+
+</script>
+
+</body>
+</html>

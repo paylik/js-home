@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    border: 1px solid black;
+    padding: 3px;
+    text-align: center;
+  }
+
+  th {
+    font-weight: bold;
+    background-color: darkgray;
+  }
+</style>
+</head>
+<body>
+
+<div id = "calendar"> </div>
+
+<script>
+
+  function createCalendar(id, year, month) {
+    var elem = document.getElementById(id);
+    var mon = month - 1;
+    var day = new Date(year, mon);
+
+    var table = '<table><tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr><tr>';
+
+    for (var i = 0; i < getDay(day); i++) {
+      table += '<td></td>';
+    }
+
+    while (day.getMonth() == mon) {
+      table += '<td>' + day.getDate() + '</td>';
+      if (getDay(day) % 7 == 6 ) {
+        table += '</tr><tr>';
+      }
+      day.setDate(day.getDate() + 1);
+    }
+
+    if (getDay(day) !=0 ) {
+      for (var i = getDay(day); i < 7 ;i++) {
+        table += '<td></td>';
+      }
+    }
+
+    table += '</tr></table>';
+
+    elem.innerHTML = table;
+  }
+  
+  function getDay(date) {
+    var weekDay = date.getDay();
+    if (weekDay == 0 ) {
+      weekDay = 7;}
+      return weekDay - 1;
+  }
+
+  createCalendar("calendar", 2016, 11)
+</script>
+
+</body>
+</html>
